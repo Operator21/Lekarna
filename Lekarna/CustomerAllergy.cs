@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lekarna
 {
-    class CustomerAllergy
+    public class CustomerAllergy
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }

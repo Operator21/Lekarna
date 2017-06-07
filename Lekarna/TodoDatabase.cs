@@ -85,6 +85,19 @@ namespace Lekarna
                 }
             }
         }
+        public Task<int> AllergySave(CustomerAllergy item)
+        {
+            {
+                if (item.ID != 0)
+                {
+                    return database.UpdateAsync(item);
+                }
+                else
+                {
+                    return database.InsertAsync(item);
+                }
+            }
+        }
         public Task<int> Delete(Drug item)
         {
             return database.DeleteAsync(item);

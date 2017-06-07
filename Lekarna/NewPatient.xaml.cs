@@ -77,6 +77,8 @@ namespace Lekarna
             {
                 frame.Navigate(new CustomerList(frame));
             }
+            c.BirthDate = birth.SelectedDate.Value.Date;
+            c.Address = address.Text;
         }
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
@@ -86,6 +88,17 @@ namespace Lekarna
             }
             base.OnPreviewKeyDown(e);
 
+        }
+        private async void GetId(Drug d)
+        {
+            long lastIdLong = await App.Database.GetLastID();
+            int lastId = (Int32)lastIdLong;
+            MessageBox.Show(lastId.ToString());
+
+            CustomerAllergy c = new CustomerAllergy();
+            c.CustomerID = customer.ID;
+            c.AllergyID = lastId;
+            await App.Database.AllergySave(c);
         }
     }
 }

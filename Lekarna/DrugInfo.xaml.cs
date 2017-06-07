@@ -41,6 +41,12 @@ namespace Lekarna
             frame = f;
 
             getdrug = App.Database.GetItem(ID).Result;
+
+            foreach (Drug r in getdrug)
+            {
+                drug = r;
+            }
+
             ingredients = App.Database.GetIngredientsAsync().Result;
             dcontent = App.Database.GetDrugContentAsync().Result;
 
@@ -49,10 +55,16 @@ namespace Lekarna
                         join Drug in getdrug on DrugContent.drugID equals Drug.ID
                         select new { Name = Drug.Name, Ing = Ingredient.Name };
 
+            /*var c_query = from Ingredient in ingredients
+                        join DrugContent in dcontent on Ingredient.ID equals DrugContent.contentID
+                        join Drug in getdrug on DrugContent.drugID equals Drug.ID
+                        select new { Name = Drug.Name, Ing = Ingredient.Name };
+            */
             foreach (var dr in query)
             {
                 Debug.WriteLine(dr.Name + " je složen z " + dr.Ing);
                 content.Content += dr.Ing + ",";
+                dname = dr.Name;
             }
 
             /*foreach (Drug t in getdrug)
