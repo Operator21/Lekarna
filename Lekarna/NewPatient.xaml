@@ -1,0 +1,42 @@
+﻿<Page x:Class="Lekarna.NewPatient"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Lekarna"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="NewPatient"
+      xmlns:fa="http://schemas.fontawesome.io/icons/">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanContentScroll="True">
+        <StackPanel>
+            <Button x:Name="back" Height="30" Click="back_Click">
+                <fa:ImageAwesome Icon="ArrowCircleLeft" Margin="1"></fa:ImageAwesome>
+            </Button>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="47*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontWeight="Bold">Jméno</Label>
+                <TextBox x:Name="name" Grid.Column="2" Grid.Row="0"></TextBox>
+                <Label Grid.Row="1" FontWeight="Bold">Příjmení</Label>
+                <TextBox x:Name="last" Grid.Column="2" Grid.Row="1"></TextBox>
+                <Label Grid.Row="2" FontWeight="Bold">Alergie</Label>
+                <TextBox x:Name="aler" Grid.Column="2" Grid.Row="2"></TextBox>
+                <Label Grid.Row="3" FontWeight="Bold">Datum narození</Label>
+                <DatePicker x:Name="birth" Grid.Column="2" Grid.Row="3"></DatePicker>
+                <Label Grid.Row="4" FontWeight="Bold">Adresa</Label>
+                <TextBox x:Name="address" Grid.Column="2" Grid.Row="4"></TextBox>
+            </Grid>
+            <Button x:Name="cd_button" Click="cd_button_Click">Placeholder</Button>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

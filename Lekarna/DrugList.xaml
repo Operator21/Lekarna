@@ -1,0 +1,34 @@
+﻿<Page x:Class="Lekarna.DrugList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Lekarna"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="DrugList"
+      xmlns:fa="http://schemas.fontawesome.io/icons/">
+
+    <StackPanel>
+        <Button Height="30" x:Name="add_drug" Click="add_drug_Click">
+            <fa:ImageAwesome Icon="PlusCircle" Margin="1"></fa:ImageAwesome>
+        </Button>
+        <Grid Height="30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="22*"/>
+            </Grid.ColumnDefinitions>
+            <fa:ImageAwesome Icon="Search" Margin="5"></fa:ImageAwesome>
+            <TextBox x:Name="search" Grid.Column="1"></TextBox>
+        </Grid>
+        <ListView x:Name="list" SelectionChanged="ItemSelected">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Název léku" Width="150" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Složení" Width="200" DisplayMemberBinding="{Binding Content}" />
+                    <GridViewColumn Header="Cena" Width="100" DisplayMemberBinding="{Binding Price}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</Page>

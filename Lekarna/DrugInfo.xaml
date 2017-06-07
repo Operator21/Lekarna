@@ -1,0 +1,54 @@
+﻿<Page x:Class="Lekarna.DrugInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Lekarna"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="DrugInfo"
+      xmlns:fa="http://schemas.fontawesome.io/icons/">
+    <StackPanel>
+        <Button Height="30"  Click="Button_Click">
+            <fa:ImageAwesome Icon="ArrowCircleLeft" Margin="1"></fa:ImageAwesome>
+        </Button>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="edit_drug" Height="30"  Click="edit_drug_Click">
+                <fa:ImageAwesome Icon="Edit" Margin="1"></fa:ImageAwesome>
+            </Button>
+            <Button x:Name="del_drug" Height="30"   Grid.Row="2" Grid.Column="2" Click="del_drug_Click">
+                <fa:ImageAwesome Icon="Trash" Margin="1"></fa:ImageAwesome>
+            </Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="47*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Visibility="Collapsed" FontWeight="Bold">ID</Label>
+            <Label Visibility="Collapsed" x:Name="id" Grid.Column="2"/>
+            <Label Grid.Row="0" FontWeight="Bold">Název léku</Label>
+            <Label x:Name="name" Grid.Column="2" Grid.Row="0"></Label>
+            <Label Grid.Row="1" FontWeight="Bold">Složení</Label>
+            <Label x:Name="content" Grid.Column="2" Grid.Row="1"></Label>
+            <Label Grid.Row="2" FontWeight="Bold">Cena za kus</Label>
+            <Label x:Name="price" Grid.Column="2" Grid.Row="2"></Label>
+        </Grid>
+        <Button x:Name="buy" Height="30"   Grid.Row="2" Grid.Column="2">
+            <fa:ImageAwesome x:Name="buy_but" Icon="CartPlus" Margin="1"></fa:ImageAwesome>
+        </Button>
+        <TextBlock  x:Name="warning" TextWrapping="Wrap" Padding="10" Background="#FFFFD100" Margin="0,0,0,5">
+            <fa:ImageAwesome Height="15" Icon="Warning" Margin="1" VerticalAlignment="Center" HorizontalAlignment="Center"></fa:ImageAwesome>
+            Aktuálně aktivní zákazník je alergický na jednu z přísad tohoto léku. Prodej není doporučen.</TextBlock>
+        <TextBlock Visibility="Collapsed" x:Name="warning_cus" TextWrapping="Wrap" Padding="10" Background="#FFFFD100">Není vybrán žádný zákazník.</TextBlock>
+    </StackPanel>
+</Page>
