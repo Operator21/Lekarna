@@ -153,10 +153,10 @@ namespace Lekarna
         {
             return database.QueryAsync<Drug>("SELECT * FROM [Customer] WHERE [Name] LIKE '" + a + "%' OR [LastName] LIKE '" + a + "%'");
         }
-        /*public Task<List<Drug>> GetDrugIngredients(int id)
+        public Task<List<Drug>> GetDrugIngredients(int id)
         {
-            return database.QueryAsync<Drug>("SELECT Drug.ID, DrugContent.contentID, Ingredient.ID FROM Drug INNER JOIN Drug ON DrugContent.contentID=Ingredient.ID AND DrugContent=Drug.ID");
-        }*/
+            return database.QueryAsync<Drug>("SELECT c.");
+        }
 
     }
 }

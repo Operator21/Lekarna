@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,9 @@ namespace Lekarna
         List<Drug> drugs = new List<Drug>();
         List<Ingredient> ing = new List<Ingredient>();
         List<string> drugcontent = new List<string>();
+        List<Ingredient> ingredients = new List<Ingredient>();
+        List<DrugContent> dcontent = new List<DrugContent>();
+        List<Drug> getdrug = new List<Drug>();
         Frame frame;
         Ingredient check;
         Drug drug;
@@ -38,6 +42,31 @@ namespace Lekarna
             ID = d.ID;
             name.Text = d.Name;
             price.Text = d.Price.ToString();
+
+            getdrug = App.Database.GetItem(d.ID).Result;
+
+            ingredients = App.Database.GetIngredientsAsync().Result;
+            dcontent = App.Database.GetDrugContentAsync().Result;
+
+            var query = from Ingredient in ingredients
+                        join DrugContent in dcontent on Ingredient.ID equals DrugContent.contentID
+                        join Drug in getdrug on DrugContent.drugID equals Drug.ID
+                        select new { Name = Drug.Name, Ing = Ingredient.Name, Price = Drug.Price };
+
+
+            int count = query.Count() - 1;
+            foreach (var dr in query)
+            {
+                if (count >= 1)
+                {
+                    content.Text += CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dr.Ing.ToLower()) + ",";
+                }
+                else
+                {
+                    content.Text += CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dr.Ing.ToLower());
+                }
+                count--;
+            }
         }
         public NewDrug(Frame f)
         {

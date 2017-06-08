@@ -27,7 +27,7 @@
                 <GridView>
                     <GridViewColumn Header="Jméno" Width="150" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Příjmení" Width="200" DisplayMemberBinding="{Binding LastName}" />
-                    <GridViewColumn Header="Aktivní" Width="50" DisplayMemberBinding="{Binding Active}" />
+                    <GridViewColumn Header="Aktivní" Width="100" DisplayMemberBinding="{Binding Active}" />
                 </GridView>
             </ListView.View>
         </ListView>

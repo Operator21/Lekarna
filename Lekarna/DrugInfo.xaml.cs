@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,20 +54,27 @@ namespace Lekarna
             var query = from Ingredient in ingredients
                         join DrugContent in dcontent on Ingredient.ID equals DrugContent.contentID
                         join Drug in getdrug on DrugContent.drugID equals Drug.ID
-                        select new { Name = Drug.Name, Ing = Ingredient.Name };
+                        select new { Name = Drug.Name, Ing = Ingredient.Name, Price = Drug.Price };
 
-            /*var c_query = from Ingredient in ingredients
-                        join DrugContent in dcontent on Ingredient.ID equals DrugContent.contentID
-                        join Drug in getdrug on DrugContent.drugID equals Drug.ID
-                        select new { Name = Drug.Name, Ing = Ingredient.Name };
-            */
+            
+            int count = query.Count() - 1;
             foreach (var dr in query)
             {
                 Debug.WriteLine(dr.Name + " je složen z " + dr.Ing);
-                content.Content += dr.Ing + ",";
+                if(count >= 1)
+                {
+                    content.Content += CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dr.Ing.ToLower()) + ", ";
+                }
+                else
+                {
+                    content.Content += CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dr.Ing.ToLower());
+                }
+                name.Content = dr.Name;
+                price.Content = dr.Price;
                 dname = dr.Name;
+                count--;
             }
-
+            active = App.Database.GetActive().Result;
             /*foreach (Drug t in getdrug)
             {
                 drug = t;
@@ -76,7 +84,6 @@ namespace Lekarna
                 price.Content = t.Price;
                 
             }*/
-            active = App.Database.GetActive().Result;
             /*try
             {
                 allergies = active.Allergies.Split(',').Reverse().ToList<string>();
@@ -95,6 +102,11 @@ namespace Lekarna
             {
                 warning.Visibility = Visibility.Collapsed;
             }*/
+            /*var c_query = from Ingredient in ingredients
+                        join DrugContent in dcontent on Ingredient.ID equals DrugContent.contentID
+                        join Drug in getdrug on DrugContent.drugID equals Drug.ID
+                        select new { Name = Drug.Name, Ing = Ingredient.Name };
+            */
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -109,7 +121,7 @@ namespace Lekarna
 
         private void del_drug_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Lék " + dname + " byl odstraněn");
+            MessageBox.Show(dname + " byl odstraněn");
             App.Database.Delete(drug);
             frame.Navigate(new DrugList(frame));
         }

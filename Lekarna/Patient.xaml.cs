@@ -67,6 +67,8 @@ namespace Lekarna
             c.ID = ID;
             c.Name = customer.Name;
             c.LastName = customer.LastName;
+            c.Address = customer.Address;
+            c.BirthDate = customer.BirthDate;
             //c.Allergies = customer.Allergies;
             c.Active = true;
             App.Database.SaveCustomerAsync(c);

@@ -31,9 +31,9 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="dlist" Grid.Column="0" Click="dlist_Click">Léky</Button>
-                    <Button x:Name="clist" Grid.Column="1" Click="clist_Click">Zákazníci</Button>
-                    <Button x:Name="cart" Grid.Column="2" Click="cart_Click">Košík</Button>
+                    <Button x:Name="dlist" Grid.Column="0" Click="dlist_Click" BorderThickness="1,1,1,0">Léky</Button>
+                    <Button x:Name="clist" Grid.Column="1" Click="clist_Click" BorderThickness="1,1,1,0">Zákazníci</Button>
+                    <Button x:Name="cart" Grid.Column="2" Click="cart_Click" BorderThickness="1,1,1,0">Košík</Button>
                 </Grid>
                 <Frame x:Name="frame" NavigationUIVisibility="Hidden">
 

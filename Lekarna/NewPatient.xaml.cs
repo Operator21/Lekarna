@@ -43,6 +43,8 @@ namespace Lekarna
             last.Text = c.LastName;
             //aler.Text = c.Allergies;
             cd_button.Content = "Upravit";
+            address.Text = c.Address;
+            birth.Text = c.BirthDate.ToString();
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -67,6 +69,8 @@ namespace Lekarna
             }
             c.Name = name.Text;
             c.LastName = last.Text;
+            c.BirthDate = birth.SelectedDate.Value.Date;
+            c.Address = address.Text;
             //c.Allergies = aler.Text;
             App.Database.SaveCustomerAsync(c);
             if (edit)
@@ -77,8 +81,6 @@ namespace Lekarna
             {
                 frame.Navigate(new CustomerList(frame));
             }
-            c.BirthDate = birth.SelectedDate.Value.Date;
-            c.Address = address.Text;
         }
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
