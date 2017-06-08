@@ -20,9 +20,12 @@ namespace Lekarna
     /// </summary>
     public partial class Cart : Page
     {
+        List<Order> list_orders = new List<Order>();
         public Cart()
         {
             InitializeComponent();
+            list_orders = App.Database.GetOrdersAsync().Result;
+            orders.ItemsSource = list_orders;
         }
     }
 }

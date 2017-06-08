@@ -33,6 +33,7 @@ namespace Lekarna
         Frame frame;
         bool show;
         bool danger;
+        bool canbuy;
         public DrugInfo(int x, Frame f, List<Drug> d)
         {
             InitializeComponent();
@@ -77,6 +78,10 @@ namespace Lekarna
                 
             }*/
             active = App.Database.GetActive().Result;
+            if (active == null)
+            {
+                buy.IsEnabled = false;
+            }
             /*try
             {
                 allergies = active.Allergies.Split(',').Reverse().ToList<string>();
@@ -112,6 +117,27 @@ namespace Lekarna
             MessageBox.Show("Lék " + dname + " byl odstraněn");
             App.Database.Delete(drug);
             frame.Navigate(new DrugList(frame));
+        }
+
+        private void buy_Click(object sender, RoutedEventArgs e)
+        {
+            if (!canbuy)
+            {
+                var result = MessageBox.Show("Jste si jist ? Zákazník může mít alergickou reakci.","",MessageBoxButton.YesNo);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        Order o = new Order();
+                        o.Amount = 1;
+                        o.Price = o.Amount * drug.Price;
+                        o.DrugName = drug.Name;
+                        o.CustomerID = active.ID;
+                        o.ProductID = drug.ID;
+                        App.Database.SaveItemAsync(o);
+                        MessageBox.Show("Saved");
+                        break;
+                }
+            }
         }
     }
 }

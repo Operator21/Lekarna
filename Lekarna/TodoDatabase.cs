@@ -24,6 +24,10 @@ namespace Lekarna
         {
             return database.Table<Drug>().ToListAsync();
         }
+        public Task<List<Order>> GetOrdersAsync()
+        {
+            return database.Table<Order>().ToListAsync();
+        }
         public Task<List<Customer>> GetCustomersAsync()
         {
             return database.Table<Customer>().ToListAsync();
@@ -49,6 +53,17 @@ namespace Lekarna
             return database.Table<Customer>().Where(i => i.ID == id).FirstOrDefaultAsync();
         }
         public Task<int> SaveItemAsync(Drug item)
+        {
+            if (item.ID != 0)
+            {
+                return database.UpdateAsync(item);
+            }
+            else
+            {
+                return database.InsertAsync(item);
+            }
+        }
+        public Task<int> SaveItemAsync(Order item)
         {
             if (item.ID != 0)
             {

@@ -60,25 +60,32 @@ namespace Lekarna
 
         private void cd_button_Click(object sender, RoutedEventArgs e)
         {
-            Customer c = new Customer();
-            if (edit)
+            try
             {
-                c.ID = ID;
+                Customer c = new Customer();
+                if (edit)
+                {
+                    c.ID = ID;
+                }
+                c.Name = name.Text;
+                c.LastName = last.Text;
+                //c.Allergies = aler.Text;
+                App.Database.SaveCustomerAsync(c);
+                if (edit)
+                {
+                    frame.Navigate(new Patient(frame, ID));
+                }
+                else
+                {
+                    frame.Navigate(new CustomerList(frame));
+                }
+                c.BirthDate = birth.SelectedDate.Value.Date;
+                c.Address = address.Text;
             }
-            c.Name = name.Text;
-            c.LastName = last.Text;
-            //c.Allergies = aler.Text;
-            App.Database.SaveCustomerAsync(c);
-            if (edit)
-            {
-                frame.Navigate(new Patient(frame,ID));
+            catch{
+                MessageBox.Show("Špatně zadané hodnoty");
             }
-            else
-            {
-                frame.Navigate(new CustomerList(frame));
-            }
-            c.BirthDate = birth.SelectedDate.Value.Date;
-            c.Address = address.Text;
+            
         }
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
