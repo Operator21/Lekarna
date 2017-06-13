@@ -21,11 +21,45 @@ namespace Lekarna
     public partial class Cart : Page
     {
         List<Order> list_orders = new List<Order>();
-        public Cart()
+        Frame frame;
+        int price;
+        public Cart(Frame f)
         {
             InitializeComponent();
             list_orders = App.Database.GetOrdersAsync().Result;
+            foreach(Order o in list_orders)
+            {
+                price += o.Price;
+            }
             orders.ItemsSource = list_orders;
+            frame = f;
+            if(price < 1)
+            {
+                pay.IsEnabled = false;
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Order o = ((Order)orders.SelectedItem);
+            App.Database.Delete(o);
+            price -= o.Price;
+            price_lbl.Content = price + " Kč";
+            Dispatcher.Invoke(Refresh);
+        }
+        private void Refresh()
+        {
+            list_orders = App.Database.GetOrdersAsync().Result;
+            orders.ItemsSource = list_orders;
+            if (price < 1)
+            {
+                pay.IsEnabled = false;
+            }
+        }
+
+        private void pay_Click(object sender, RoutedEventArgs e)
+        {
+            price_lbl.Content = price + " Kč";
         }
     }
 }

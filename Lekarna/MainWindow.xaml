@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         Title="DrugInv" Height="350" Width="525"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" WindowStartupLocation="CenterScreen">
     <Border BorderBrush="#FF0A0A0A" BorderThickness="1" MaxWidth="800">
         <Grid Margin="5">
             <StackPanel x:Name="warning_text" Background="Gray" Panel.ZIndex="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,0,0" Opacity="0.9">

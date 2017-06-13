@@ -19,12 +19,20 @@
             <Label Grid.Column="1">Košík</Label>
         </Grid>
         <ListView x:Name="orders">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Odstranit" Click="MenuItem_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
+                
                 <GridView>
                     <GridViewColumn Header="Název léku" Width="150" DisplayMemberBinding="{Binding DrugName}" />
                     <GridViewColumn Header="Cena" Width="200" DisplayMemberBinding="{Binding Price}" />
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button x:Name="pay" Click="pay_Click">Zaplatit</Button>
+        <Label x:Name="price_lbl" HorizontalAlignment="Center"></Label>
     </StackPanel>
 </Page>

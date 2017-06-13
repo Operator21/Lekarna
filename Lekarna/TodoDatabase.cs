@@ -117,6 +117,10 @@ namespace Lekarna
         {
             return database.DeleteAsync(item);
         }
+        public Task<int> Delete(Order item)
+        {
+            return database.DeleteAsync(item);
+        }
         public Task<int> Delete(Customer item)
         {
             return database.DeleteAsync(item);

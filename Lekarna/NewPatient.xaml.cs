@@ -42,6 +42,8 @@ namespace Lekarna
             name.Text = c.Name;
             last.Text = c.LastName;
             //aler.Text = c.Allergies;
+            address.Text = c.Address;
+            birth.SelectedDate = c.BirthDate;
             cd_button.Content = "Upravit";
         }
 
@@ -60,32 +62,40 @@ namespace Lekarna
 
         private void cd_button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            /*try
+            {*/
                 Customer c = new Customer();
                 if (edit)
                 {
                     c.ID = ID;
                 }
+                if (customer.Active)
+                {
+                    c.Active = true;
+                }
                 c.Name = name.Text;
                 c.LastName = last.Text;
                 //c.Allergies = aler.Text;
-                App.Database.SaveCustomerAsync(c);
-                if (edit)
-                {
-                    frame.Navigate(new Patient(frame, ID));
-                }
-                else
-                {
-                    frame.Navigate(new CustomerList(frame));
-                }
+                
+                
                 c.BirthDate = birth.SelectedDate.Value.Date;
                 c.Address = address.Text;
+                App.Database.SaveCustomerAsync(c);
+
+            if (edit)
+            {
+                frame.Navigate(new Patient(frame, ID));
+            }
+            else
+            {
+                frame.Navigate(new CustomerList(frame));
+            }
+            /*
             }
             catch{
                 MessageBox.Show("Špatně zadané hodnoty");
-            }
-            
+            }*/
+
         }
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {

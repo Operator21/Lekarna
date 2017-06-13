@@ -32,9 +32,12 @@ namespace Lekarna
         bool isempty;
         int r;
         Random rnd = new Random();
+        Helper utility = new Helper();
+
         public MainWindow()
         {
             InitializeComponent();
+            utility.frame = frame;
             drugs = new List<Drug>(App.Database.GetItemsAsync().Result);
             customers = new List<Customer>(App.Database.GetCustomersAsync().Result);
             warning_text.Visibility = Visibility.Collapsed;
@@ -112,7 +115,7 @@ namespace Lekarna
             dlist.IsEnabled = true;
             clist.IsEnabled = true;
             cart.IsEnabled = false;
-            frame.Navigate(new Cart());
+            frame.Navigate(new Cart(frame));
         }
     }
 }
