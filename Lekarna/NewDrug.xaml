@@ -26,7 +26,9 @@
             <Label Grid.Row="0" FontWeight="Bold">Název léku</Label>
             <TextBox x:Name="name" Grid.Column="2" Grid.Row="0"></TextBox>
             <Label Grid.Row="1" FontWeight="Bold">Složení</Label>
-            <TextBox x:Name="content" Grid.Column="2" Grid.Row="1"></TextBox>
+            <Button x:Name="content" Height="30" Grid.Row="1" Grid.Column="1" Click="content_Click">
+                <fa:ImageAwesome Icon="ObjectGroup" Margin="1"></fa:ImageAwesome>
+            </Button>
             <Label Grid.Row="2" FontWeight="Bold">Cena za kus</Label>
             <TextBox x:Name="price" Grid.Column="2" Grid.Row="2"></TextBox>
         </Grid>

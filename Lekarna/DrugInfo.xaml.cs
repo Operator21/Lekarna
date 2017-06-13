@@ -61,14 +61,24 @@ namespace Lekarna
                         join Drug in getdrug on DrugContent.drugID equals Drug.ID
                         select new { Name = Drug.Name, Ing = Ingredient.Name };
             */
+            int pom = 0;
             foreach (var dr in query)
             {
                 Debug.WriteLine(dr.Name + " je složen z " + dr.Ing);
-                content.Content += dr.Ing + ",";
+                if(pom+1 < query.Count())
+                {
+                    content.Content += dr.Ing + ", ";
+                }
+                else
+                {
+                    content.Content += dr.Ing;
+                }
+                
                 dname = dr.Name;
+                pom++;
             }
 
-            /*foreach (Drug t in getdrug)
+            foreach (Drug t in getdrug)
             {
                 drug = t;
                 id.Content = t.ID;
@@ -76,7 +86,7 @@ namespace Lekarna
                 dname = t.Name;
                 price.Content = t.Price;
                 
-            }*/
+            }
             active = App.Database.GetActive().Result;
             if (active == null)
             {

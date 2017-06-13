@@ -95,6 +95,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddContent.xaml.cs">
+      <DependentUpon>AddContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cart.xaml.cs">
       <DependentUpon>Cart.xaml</DependentUpon>
     </Compile>
@@ -119,6 +122,10 @@
     </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="TodoDatabase.cs" />
+    <Page Include="AddContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Cart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

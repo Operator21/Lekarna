@@ -33,11 +33,13 @@ namespace Lekarna
         {
             InitializeComponent();
             edit = true;
+            drug = d;
             cd_button.Content = "Upravit";
             frame = f;
             ID = d.ID;
             name.Text = d.Name;
             price.Text = d.Price.ToString();
+            ing = App.Database.GetIngredientsAsync().Result;
         }
         public NewDrug(Frame f)
         {
@@ -45,6 +47,7 @@ namespace Lekarna
             cd_button.Content = "Vytvořit";
             frame = f;
             edit = false;
+            ing = App.Database.GetIngredientsAsync().Result;
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -73,12 +76,17 @@ namespace Lekarna
             {
                 d.Price = Int32.Parse(price.Text);
                 App.Database.SaveItemAsync(d);
-                List<string> drugcontent = content.Text.Split(',').Reverse().ToList<string>();
+                //List<string> drugcontent = content.Text.Split(',').Reverse().ToList<string>();
                 ing = App.Database.GetIngredientsAsync().Result;
                 foreach (string s in drugcontent)
                 {
                     if (!string.IsNullOrEmpty(s))
                     {
+                        /*List<Ingredient> exist = ing.Where(p => p.Name == s).ToList();
+                        foreach(Ingredient ig in exist)
+                        {
+                            MessageBox.Show(ig.Name);
+                        }*/
                         //MessageBox.Show(s);
                         Ingredient i = new Ingredient();
                         i.Name = s.ToUpper();
@@ -125,6 +133,19 @@ namespace Lekarna
             c.drugID = d.ID;
             c.contentID = lastId;
             await App.Database.DrugIngredientSave(c);
+        }
+
+        private void content_Click(object sender, RoutedEventArgs e)
+        {
+            if (edit)
+            {
+                frame.Navigate(new AddContent(frame, drug));
+            }
+            else
+            {
+                MessageBox.Show("Nejdříve musí být lék vytvořen");
+            }
+            
         }
     }
 }

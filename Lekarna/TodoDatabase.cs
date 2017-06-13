@@ -156,6 +156,14 @@ namespace Lekarna
         {
             return database.QueryAsync<Drug>("SELECT * FROM [Drug] WHERE [ID] = " + id);
         }
+        public Task<List<DrugContent>> EraseContent(int id)
+        {
+            return database.QueryAsync<DrugContent>("DELETE FROM [DrugContent] WHERE [drugID] = " + id);
+        }
+        public Task<List<DrugContent>> GetSelected(int id)
+        {
+            return database.QueryAsync<DrugContent>("SELECT * FROM [DrugContent] WHERE [drugID] = " + id);
+        }
         /*public Task<List<Customer>> GetActive()
         {
             return database.QueryAsync<Customer>("SELECT * FROM [Customer] WHERE [Active] = 'true'");
@@ -168,9 +176,9 @@ namespace Lekarna
         {
             return database.QueryAsync<Customer>("SELECT * FROM [Customer] WHERE [Name] LIKE '" + a + "%' OR [LastName] LIKE '" + a + "%'");
         }
-        public Task<List<Drug>> GetDrugLike(string a)
+        public Task<List<Drug>> GetIngredientLike(string a)
         {
-            return database.QueryAsync<Drug>("SELECT * FROM [Customer] WHERE [Name] LIKE '" + a + "%' OR [LastName] LIKE '" + a + "%'");
+            return database.QueryAsync<Drug>("SELECT * FROM [Ingredient] WHERE [Name] LIKE '" + a + "%'");
         }
         /*public Task<List<Drug>> GetDrugIngredients(int id)
         {
