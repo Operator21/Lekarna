@@ -44,7 +44,7 @@ namespace Lekarna
             Order o = ((Order)orders.SelectedItem);
             App.Database.Delete(o);
             price -= o.Price;
-            price_lbl.Content = price + " Kč";
+            price_lbl.Content = "Celková cena: " + price + " Kč";
             Dispatcher.Invoke(Refresh);
         }
         private void Refresh()
@@ -59,7 +59,7 @@ namespace Lekarna
 
         private void pay_Click(object sender, RoutedEventArgs e)
         {
-            price_lbl.Content = price + " Kč";
+            price_lbl.Content = "Celková cena: " + price + " Kč";
         }
     }
 }
