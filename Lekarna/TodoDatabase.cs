@@ -160,6 +160,18 @@ namespace Lekarna
         {
             return database.QueryAsync<Drug>("SELECT * FROM [Drug] WHERE [ID] = " + id);
         }
+        public Task<List<Ingredient>> GetAllergy(int id)
+        {
+            return database.QueryAsync<Ingredient>("SELECT * FROM [Ingredient] WHERE [ID] = " + id);
+        }
+        public Task<List<CustomerAllergy>> GetAllergyID(int id)
+        {
+            return database.QueryAsync<CustomerAllergy>("SELECT * FROM [CustomerAllergy] WHERE [CustomerID] = " + id);
+        }
+        public Task<List<DrugContent>> GetIngredientID(int id)
+        {
+            return database.QueryAsync<DrugContent>("SELECT * FROM [DrugContent] WHERE [drugID] = " + id);
+        }
         public Task<List<DrugContent>> EraseContent(int id)
         {
             return database.QueryAsync<DrugContent>("DELETE FROM [DrugContent] WHERE [drugID] = " + id);

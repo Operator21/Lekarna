@@ -121,7 +121,15 @@ namespace Lekarna
 
         private void aler_Click(object sender, RoutedEventArgs e)
         {
-            frame.Navigate(new AddContent(frame,customer));
+            if (edit)
+            {
+                frame.Navigate(new AddContent(frame, customer));
+            }
+            else
+            {
+                MessageBox.Show("Pacient musí být nejprve vytvořen");
+            }
+            
         }
     }
 }

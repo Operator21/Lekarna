@@ -25,8 +25,10 @@ namespace Lekarna
         List<Drug> drugs = new List<Drug>();
         List<Ingredient> ingredients = new List<Ingredient>();
         List<DrugContent> dcontent = new List<DrugContent>();
+        List<CustomerAllergy> allergy_ids = new List<CustomerAllergy>();
+        List<Ingredient> allergy = new List<Ingredient>();
         List<string> writec = new List<string>();
-        Customer active;
+        Customer customer;
         Drug drug;
         int ID;
         string dname;
@@ -41,14 +43,96 @@ namespace Lekarna
             drugs = d;
             frame = f;
 
-            getdrug = App.Database.GetItem(ID).Result;
-
-            foreach (Drug r in getdrug)
+            customer = App.Database.GetActive().Result;
+            if (customer == null)
             {
-                drug = r;
+                buy.IsEnabled = false;
             }
 
-            ingredients = App.Database.GetIngredientsAsync().Result;
+            getdrug = App.Database.GetItem(ID).Result;
+            foreach (Drug t in getdrug)
+            {
+                drug = t;
+                id.Content = t.ID;
+                name.Content = t.Name;
+                dname = t.Name;
+                price.Content = t.Price;
+
+            }
+            dcontent = App.Database.GetIngredientID(drug.ID).Result;
+            int pom = 0;
+            if (customer != null)
+            {
+                allergy_ids = App.Database.GetAllergyID(customer.ID).Result;
+                foreach (CustomerAllergy c in allergy_ids)
+                {
+                    Debug.WriteLine(c.AllergyID);
+                    allergy = App.Database.GetAllergy(c.AllergyID).Result;
+                    foreach (Ingredient aler in allergy)
+                    {
+                        //Debug.WriteLine(aler.Name);
+                        foreach (DrugContent dr in dcontent)
+                        {
+                            Debug.WriteLine(dr.contentID);
+                            ingredients = App.Database.GetAllergy(dr.contentID).Result;
+                            foreach (Ingredient ing in ingredients)
+                            {
+                                //Debug.WriteLine(ing.Name);
+                                if (aler.Name == ing.Name)
+                                {
+                                    danger = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                foreach (DrugContent dr in dcontent)
+                {
+                    Debug.WriteLine(dr.contentID);
+                    ingredients = App.Database.GetAllergy(dr.contentID).Result;
+                    foreach (Ingredient ing in ingredients)
+                    {
+                        //Debug.WriteLine(ing.Name);
+                        if (pom + 1 < ingredients.Count())
+                        {
+                            content.Content += ing.Name + ", ";
+                        }
+                        else
+                        {
+                            content.Content += ing.Name;
+                        }
+                        pom++;
+                    }
+                }
+            }
+            else
+            { 
+                foreach (DrugContent dr in dcontent)
+                {
+                    Debug.WriteLine(dr.contentID);
+                    ingredients = App.Database.GetAllergy(dr.contentID).Result;
+                    foreach (Ingredient ing in ingredients)
+                    {
+                        //Debug.WriteLine(ing.Name);
+                        if (pom + 1 < ingredients.Count())
+                        {
+                            content.Content += ing.Name + ", ";
+                        }
+                        else
+                        {
+                            content.Content += ing.Name;
+                        }
+                        pom++;
+                    }
+                }
+            }
+            
+            /*foreach (Drug r in getdrug)
+            {
+                drug = r;
+            }*/
+
+            /*ingredients = App.Database.GetIngredientsAsync().Result;
             dcontent = App.Database.GetDrugContentAsync().Result;
 
             var query = from Ingredient in ingredients
@@ -61,7 +145,7 @@ namespace Lekarna
                         join Drug in getdrug on DrugContent.drugID equals Drug.ID
                         select new { Name = Drug.Name, Ing = Ingredient.Name };
             */
-            int pom = 0;
+            /*int pom = 0;
             foreach (var dr in query)
             {
                 Debug.WriteLine(dr.Name + " je složen z " + dr.Ing);
@@ -76,22 +160,9 @@ namespace Lekarna
                 
                 dname = dr.Name;
                 pom++;
-            }
+            }*/
 
-            foreach (Drug t in getdrug)
-            {
-                drug = t;
-                id.Content = t.ID;
-                name.Content = t.Name;
-                dname = t.Name;
-                price.Content = t.Price;
-                
-            }
-            active = App.Database.GetActive().Result;
-            if (active == null)
-            {
-                buy.IsEnabled = false;
-            }
+            
             /*try
             {
                 allergies = active.Allergies.Split(',').Reverse().ToList<string>();
@@ -101,7 +172,7 @@ namespace Lekarna
                 warning_cus.Visibility = Visibility.Visible;
             }*/
 
-            /*danger = allergies.Intersect(ingredients).Any();
+            //danger = allergies.Intersect(ingredients).Any();
             if (danger)
             {
                 warning.Visibility = Visibility.Visible;
@@ -109,7 +180,8 @@ namespace Lekarna
             else
             {
                 warning.Visibility = Visibility.Collapsed;
-            }*/
+            }
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -131,7 +203,7 @@ namespace Lekarna
 
         private void buy_Click(object sender, RoutedEventArgs e)
         {
-            if (!canbuy)
+            if (danger)
             {
                 var result = MessageBox.Show("Jste si jist ? Zákazník může mít alergickou reakci.","",MessageBoxButton.YesNo);
                 switch (result)
@@ -141,12 +213,22 @@ namespace Lekarna
                         o.Amount = 1;
                         o.Price = o.Amount * drug.Price;
                         o.DrugName = drug.Name;
-                        o.CustomerID = active.ID;
+                        o.CustomerID = customer.ID;
                         o.ProductID = drug.ID;
                         App.Database.SaveItemAsync(o);
-                        MessageBox.Show("Saved");
+                        //MessageBox.Show("Saved");
                         break;
                 }
+            }
+            else
+            {
+                Order o = new Order();
+                o.Amount = 1;
+                o.Price = o.Amount * drug.Price;
+                o.DrugName = drug.Name;
+                o.CustomerID = customer.ID;
+                o.ProductID = drug.ID;
+                App.Database.SaveItemAsync(o);
             }
         }
     }

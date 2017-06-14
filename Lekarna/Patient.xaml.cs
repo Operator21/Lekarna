@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,9 @@ namespace Lekarna
         Customer customer;
         Customer a;
         int ID;
+        List<CustomerAllergy> allergy_ids = new List<CustomerAllergy>();
+        List<Ingredient> allergy = new List<Ingredient>();
+
         public Patient(Frame f, int i)
         {
             InitializeComponent();
@@ -40,6 +44,28 @@ namespace Lekarna
             } else
             {
                 activate.IsEnabled = true;
+            }
+
+            allergy_ids = App.Database.GetAllergyID(customer.ID).Result;
+            int pom = 0;
+            foreach(CustomerAllergy c in allergy_ids)
+            {
+                Debug.WriteLine(c.AllergyID);
+                allergy = App.Database.GetAllergy(c.AllergyID).Result;
+                foreach(Ingredient ing in allergy)
+                {
+                    Debug.WriteLine(ing.Name);
+                    aler.Content += ing.Name + ", ";
+                    if (pom + 1 < allergy.Count())
+                    {
+                        aler.Content += ing.Name + ", ";
+                    }
+                    else
+                    {
+                        aler.Content += ing.Name;
+                    }
+                    pom++;
+                }
             }
         }
 
