@@ -93,7 +93,7 @@ namespace Lekarna
                     foreach (Ingredient ing in ingredients)
                     {
                         //Debug.WriteLine(ing.Name);
-                        if (pom + 1 < ingredients.Count())
+                        if (pom + 1 < dcontent.Count())
                         {
                             content.Content += ing.Name + ", ";
                         }
@@ -114,7 +114,7 @@ namespace Lekarna
                     foreach (Ingredient ing in ingredients)
                     {
                         //Debug.WriteLine(ing.Name);
-                        if (pom + 1 < ingredients.Count())
+                        if (pom + 1 < dcontent.Count())
                         {
                             content.Content += ing.Name + ", ";
                         }

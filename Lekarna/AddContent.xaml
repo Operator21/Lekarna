@@ -10,6 +10,7 @@
       xmlns:fa="http://schemas.fontawesome.io/icons/">
 
     <StackPanel>
+        <TextBox x:Name="name"></TextBox>
         <Button Height="30" x:Name="add_ing" Click="add_ing_Click">
             <fa:ImageAwesome Icon="PlusCircle" Margin="1"></fa:ImageAwesome>
         </Button>

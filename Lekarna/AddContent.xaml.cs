@@ -88,10 +88,17 @@ namespace Lekarna
 
         private void add_ing_Click(object sender, RoutedEventArgs e)
         {
-            Ingredient i = new Ingredient();
-            i.Name = "ingredint" + rnd.Next(1,800000); ;
-            App.Database.IngredientSave(i);
-            Dispatcher.Invoke(Refresh);
+            if(String.IsNullOrEmpty(name.Text) || String.IsNullOrWhiteSpace(name.Text))
+            {
+                MessageBox.Show("Jméno musí být vyplněno");
+            }
+            else
+            {
+                Ingredient i = new Ingredient();
+                i.Name = name.Text;
+                App.Database.IngredientSave(i);
+                Dispatcher.Invoke(Refresh);
+            }
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {

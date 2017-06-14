@@ -52,11 +52,10 @@ namespace Lekarna
             {
                 Debug.WriteLine(c.AllergyID);
                 allergy = App.Database.GetAllergy(c.AllergyID).Result;
-                foreach(Ingredient ing in allergy)
+                foreach (Ingredient ing in allergy)
                 {
                     Debug.WriteLine(ing.Name);
-                    aler.Content += ing.Name + ", ";
-                    if (pom + 1 < allergy.Count())
+                    if (pom + 1 < allergy_ids.Count)
                     {
                         aler.Content += ing.Name + ", ";
                     }
@@ -95,6 +94,8 @@ namespace Lekarna
             c.LastName = customer.LastName;
             //c.Allergies = customer.Allergies;
             c.Active = true;
+            c.Address = customer.Address;
+            c.BirthDate = customer.BirthDate;
             App.Database.SaveCustomerAsync(c);
             activate.IsEnabled = false;
         }
