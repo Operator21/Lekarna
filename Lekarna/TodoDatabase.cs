@@ -125,6 +125,10 @@ namespace Lekarna
         {
             return database.DeleteAsync(item);
         }
+        public Task<int> Delete(Ingredient item)
+        {
+            return database.DeleteAsync(item);
+        }
         public Task<int> SaveCustomerAsync(Customer item)
         {
             if (item.ID != 0)
@@ -159,6 +163,10 @@ namespace Lekarna
         public Task<List<DrugContent>> EraseContent(int id)
         {
             return database.QueryAsync<DrugContent>("DELETE FROM [DrugContent] WHERE [drugID] = " + id);
+        }
+        public Task<List<CustomerAllergy>> EraseAllergy(int id)
+        {
+            return database.QueryAsync<CustomerAllergy>("DELETE FROM [CustomerAllergy] WHERE [CustomerID] = " + id);
         }
         public Task<List<DrugContent>> GetSelected(int id)
         {

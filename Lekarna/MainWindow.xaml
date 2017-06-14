@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Lekarna"
         mc:Ignorable="d"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
-        Title="DrugInv" Height="350" Width="525"
+        Title="DrugInv" Height="450" Width="525"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" WindowStartupLocation="CenterScreen">
     <Border BorderBrush="#FF0A0A0A" BorderThickness="1" MaxWidth="800">
         <Grid Margin="5">

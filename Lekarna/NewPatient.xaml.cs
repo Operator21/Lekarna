@@ -68,11 +68,12 @@ namespace Lekarna
                 if (edit)
                 {
                     c.ID = ID;
+                    if (customer.Active)
+                    {
+                        c.Active = true;
+                    }
                 }
-                if (customer.Active)
-                {
-                    c.Active = true;
-                }
+                
                 c.Name = name.Text;
                 c.LastName = last.Text;
                 //c.Allergies = aler.Text;
@@ -106,16 +107,21 @@ namespace Lekarna
             base.OnPreviewKeyDown(e);
 
         }
-        private async void GetId(Drug d)
+        /*private async void GetId(Drug d)
         {
             long lastIdLong = await App.Database.GetLastID();
             int lastId = (Int32)lastIdLong;
             MessageBox.Show(lastId.ToString());
 
-            CustomerAllergy c = new CustomerAllergy();
+            /*CustomerAllergy c = new CustomerAllergy();
             c.CustomerID = customer.ID;
             c.AllergyID = lastId;
             await App.Database.AllergySave(c);
+        }*/
+
+        private void aler_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Navigate(new AddContent(frame,customer));
         }
     }
 }

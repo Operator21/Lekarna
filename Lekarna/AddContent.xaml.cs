@@ -59,15 +59,31 @@ namespace Lekarna
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            App.Database.EraseContent(drug.ID);
-            foreach (Ingredient i in list.SelectedItems)
+            if (Content)
             {
-                DrugContent d = new DrugContent();
-                d.drugID = drug.ID;
-                d.contentID = i.ID;
-                App.Database.SaveDrugContentAsync(d);
+                App.Database.EraseContent(drug.ID);
+                foreach (Ingredient i in list.SelectedItems)
+                {
+                    DrugContent d = new DrugContent();
+                    d.drugID = drug.ID;
+                    d.contentID = i.ID;
+                    App.Database.SaveDrugContentAsync(d);
+                }
+                frame.Navigate(new NewDrug(frame, drug));
             }
-            frame.Navigate(new NewDrug(frame,drug));
+            else
+            {
+                App.Database.EraseAllergy(customer.ID);
+                foreach (Ingredient i in list.SelectedItems)
+                {
+                    CustomerAllergy d = new CustomerAllergy();
+                    d.AllergyID = i.ID;
+                    d.CustomerID = customer.ID;
+                    App.Database.AllergySave(d);
+                }
+                frame.Navigate(new NewPatient(frame, customer));
+            }
+            
         }
 
         private void add_ing_Click(object sender, RoutedEventArgs e)
@@ -75,7 +91,17 @@ namespace Lekarna
             Ingredient i = new Ingredient();
             i.Name = "ingredint" + rnd.Next(1,800000); ;
             App.Database.IngredientSave(i);
-            list.ItemsSource = App.Database.GetIngredientsAsync().Result;
+            Dispatcher.Invoke(Refresh);
         }
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Ingredient o = ((Ingredient)list.SelectedItem);
+            App.Database.Delete(o);
+            Dispatcher.Invoke(Refresh);
+        }
+        private void Refresh()
+        {
+            list.ItemsSource = App.Database.GetIngredientsAsync().Result;
+        } 
     }
 }

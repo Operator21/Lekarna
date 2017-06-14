@@ -30,7 +30,9 @@
                 <Label Grid.Row="1" FontWeight="Bold">Příjmení</Label>
                 <TextBox x:Name="last" Grid.Column="2" Grid.Row="1"></TextBox>
                 <Label Grid.Row="2" FontWeight="Bold">Alergie</Label>
-                <TextBox x:Name="aler" Grid.Column="2" Grid.Row="2"></TextBox>
+                <Button x:Name="aler" Grid.Column="2" Grid.Row="2" Height="30" Click="aler_Click">
+                    <fa:ImageAwesome Icon="ObjectGroup" Margin="1"></fa:ImageAwesome>
+                </Button>
                 <Label Grid.Row="3" FontWeight="Bold">Datum narození</Label>
                 <DatePicker x:Name="birth" Grid.Column="2" Grid.Row="3"></DatePicker>
                 <Label Grid.Row="4" FontWeight="Bold">Adresa</Label>
