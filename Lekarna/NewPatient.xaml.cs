@@ -62,8 +62,8 @@ namespace Lekarna
 
         private void cd_button_Click(object sender, RoutedEventArgs e)
         {
-            /*try
-            {*/
+            try
+            {
                 Customer c = new Customer();
                 if (edit)
                 {
@@ -91,11 +91,11 @@ namespace Lekarna
             {
                 frame.Navigate(new CustomerList(frame));
             }
-            /*
+            
             }
             catch{
                 MessageBox.Show("Špatně zadané hodnoty");
-            }*/
+            }
 
         }
         protected override void OnPreviewKeyDown(KeyEventArgs e)
