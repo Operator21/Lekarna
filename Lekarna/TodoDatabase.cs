@@ -184,6 +184,10 @@ namespace Lekarna
         {
             return database.QueryAsync<DrugContent>("SELECT * FROM [DrugContent] WHERE [drugID] = " + id);
         }
+        public Task<List<Order>> GetNotPurchased()
+        {
+            return database.QueryAsync<Order>("SELECT * FROM [Order] WHERE [Ordered] = '0'");
+        }
         /*public Task<List<Customer>> GetActive()
         {
             return database.QueryAsync<Customer>("SELECT * FROM [Customer] WHERE [Active] = 'true'");
@@ -192,18 +196,22 @@ namespace Lekarna
         {
             return database.QueryAsync<Customer>("UPDATE [Customer] SET [Active] = 'false'");
         }
+        public Task<List<Order>> Buy()
+        {
+            return database.QueryAsync<Order>("UPDATE [Order] SET [Ordered] = 'true'");
+        }
         public Task<List<Customer>> GetLike(string a)
         {
             return database.QueryAsync<Customer>("SELECT * FROM [Customer] WHERE [Name] LIKE '" + a + "%' OR [LastName] LIKE '" + a + "%'");
+        }
+        public Task<List<Drug>> GetDrugLike(string a)
+        {
+            return database.QueryAsync<Drug>("SELECT * FROM [Drug] WHERE [Name] LIKE '" + a + "%'");
         }
         public Task<List<Drug>> GetIngredientLike(string a)
         {
             return database.QueryAsync<Drug>("SELECT * FROM [Ingredient] WHERE [Name] LIKE '" + a + "%'");
         }
-        /*public Task<List<Drug>> GetDrugIngredients(int id)
-        {
-            return database.QueryAsync<Drug>("SELECT Drug.ID, DrugContent.contentID, Ingredient.ID FROM Drug INNER JOIN Drug ON DrugContent.contentID=Ingredient.ID AND DrugContent=Drug.ID");
-        }*/
 
     }
 }

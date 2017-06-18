@@ -50,5 +50,19 @@ namespace Lekarna
         {
             frame.Navigate(new NewDrug(frame));
         }
+
+        private void search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!String.IsNullOrWhiteSpace(search.Text))
+            {
+                drugs = App.Database.GetDrugLike(search.Text).Result;
+                list.ItemsSource = drugs;
+            }
+            else
+            {
+                drugs = App.Database.GetItemsAsync().Result;
+                list.ItemsSource = drugs;
+            }
+        }
     }
 }

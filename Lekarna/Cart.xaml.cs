@@ -26,7 +26,7 @@ namespace Lekarna
         public Cart(Frame f)
         {
             InitializeComponent();
-            list_orders = App.Database.GetOrdersAsync().Result;
+            list_orders = App.Database.GetNotPurchased().Result;
             foreach(Order o in list_orders)
             {
                 price += o.Price;
@@ -37,6 +37,7 @@ namespace Lekarna
             {
                 pay.IsEnabled = false;
             }
+            price_lbl.Content = "Celková cena: " + price + " Kč";
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -59,7 +60,9 @@ namespace Lekarna
 
         private void pay_Click(object sender, RoutedEventArgs e)
         {
-            price_lbl.Content = "Celková cena: " + price + " Kč";
+            App.Database.Buy();
+            MessageBox.Show(list_orders.Count + " produktů za " + price + " Kč");
+            frame.Navigate(new Cart(frame));
         }
     }
 }

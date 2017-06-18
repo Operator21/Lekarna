@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="22*"/>
             </Grid.ColumnDefinitions>
             <fa:ImageAwesome Icon="Search" Margin="5"></fa:ImageAwesome>
-            <TextBox x:Name="search" Grid.Column="1"></TextBox>
+            <TextBox x:Name="search" Grid.Column="1" TextChanged="search_TextChanged"></TextBox>
         </Grid>
         <ListView x:Name="list" SelectionChanged="ItemSelected">
             <ListView.View>

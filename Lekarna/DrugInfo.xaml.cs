@@ -47,6 +47,8 @@ namespace Lekarna
             if (customer == null)
             {
                 buy.IsEnabled = false;
+                danger = true;
+                warning.Text = "Žádný uživatel není aktivní, není možné kupovat bez kontroly alergií.";
             }
 
             getdrug = App.Database.GetItem(ID).Result;
@@ -126,53 +128,6 @@ namespace Lekarna
                     }
                 }
             }
-            
-            /*foreach (Drug r in getdrug)
-            {
-                drug = r;
-            }*/
-
-            /*ingredients = App.Database.GetIngredientsAsync().Result;
-            dcontent = App.Database.GetDrugContentAsync().Result;
-
-            var query = from Ingredient in ingredients
-                        join DrugContent in dcontent on Ingredient.ID equals DrugContent.contentID
-                        join Drug in getdrug on DrugContent.drugID equals Drug.ID
-                        select new { Name = Drug.Name, Ing = Ingredient.Name };
-
-            /*var c_query = from Ingredient in ingredients
-                        join DrugContent in dcontent on Ingredient.ID equals DrugContent.contentID
-                        join Drug in getdrug on DrugContent.drugID equals Drug.ID
-                        select new { Name = Drug.Name, Ing = Ingredient.Name };
-            */
-            /*int pom = 0;
-            foreach (var dr in query)
-            {
-                Debug.WriteLine(dr.Name + " je složen z " + dr.Ing);
-                if(pom+1 < query.Count())
-                {
-                    content.Content += dr.Ing + ", ";
-                }
-                else
-                {
-                    content.Content += dr.Ing;
-                }
-                
-                dname = dr.Name;
-                pom++;
-            }*/
-
-            
-            /*try
-            {
-                allergies = active.Allergies.Split(',').Reverse().ToList<string>();
-            }
-            catch
-            {
-                warning_cus.Visibility = Visibility.Visible;
-            }*/
-
-            //danger = allergies.Intersect(ingredients).Any();
             if (danger)
             {
                 warning.Visibility = Visibility.Visible;
@@ -196,9 +151,13 @@ namespace Lekarna
 
         private void del_drug_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Lék " + dname + " byl odstraněn");
-            App.Database.Delete(drug);
-            frame.Navigate(new DrugList(frame));
+            var check = MessageBox.Show(dname + " bude odstraněn. Jste si jist ?", "Odstranit",MessageBoxButton.YesNo);
+            if(check == MessageBoxResult.Yes)
+            {
+                App.Database.Delete(drug);
+                frame.Navigate(new DrugList(frame));
+            }
+            
         }
 
         private void buy_Click(object sender, RoutedEventArgs e)
@@ -215,6 +174,7 @@ namespace Lekarna
                         o.DrugName = drug.Name;
                         o.CustomerID = customer.ID;
                         o.ProductID = drug.ID;
+                        o.Ordered = false;
                         App.Database.SaveItemAsync(o);
                         //MessageBox.Show("Saved");
                         break;

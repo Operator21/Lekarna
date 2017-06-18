@@ -80,9 +80,13 @@ namespace Lekarna
 
         private void del_pat_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Pacient " + customer.Name + " byl odstraněn");
-            App.Database.Delete(customer);
-            frame.Navigate(new CustomerList(frame));
+            var result = MessageBox.Show(customer.Name + " bude odstraněn", "Odstranit ?",MessageBoxButton.YesNo);
+            if(result == MessageBoxResult.Yes)
+            {
+                App.Database.Delete(customer);
+                frame.Navigate(new CustomerList(frame));
+            }
+            
         }
 
         private void activate_Click(object sender, RoutedEventArgs e)
