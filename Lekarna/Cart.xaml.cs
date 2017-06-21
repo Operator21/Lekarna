@@ -42,11 +42,15 @@ namespace Lekarna
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Order o = ((Order)orders.SelectedItem);
-            App.Database.Delete(o);
-            price -= o.Price;
-            price_lbl.Content = "Celková cena: " + price + " Kč";
-            Dispatcher.Invoke(Refresh);
+            if(orders.SelectedItem != null)
+            {
+                Order o = ((Order)orders.SelectedItem);
+                App.Database.Delete(o);
+                price -= o.Price;
+                price_lbl.Content = "Celková cena: " + price + " Kč";
+                Dispatcher.Invoke(Refresh);
+            }
+            
         }
         private void Refresh()
         {
